@@ -27,6 +27,6 @@ int main(int argc, char *argv[])
   pi = (float)4 * n2 / n1;
   end = omp_get_wtime();
   printf("Time consumption - %f\n", (end - start));
-  printf("Total number of points = %f, Number of points inside circle=%f, Pi = %f\n", n1, n2, pi);  
+  printf("Total number of points = %i, Number of points inside circle=%i, Pi = %f\n", n1, n2, pi);  
   return 0;
 }
