@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from mpi4py import MPI
 from string import ascii_lowercase
 from random import choice, choices
