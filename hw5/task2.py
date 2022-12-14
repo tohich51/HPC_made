@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from argparse import ArgumentParser
 from mpi4py import MPI
 import numpy as np
@@ -10,8 +11,8 @@ rank = comm.Get_rank()
 proc_cnt = comm.Get_size()
 
 def setup_parser(parser):
-  parser.add_argument("steps", type=int)
   parser.add_argument("rule", type=int)
+  parser.add_argument("steps", type=int)
   parser.add_argument("size", type=int)
   parser.add_argument("--savefig", action="store_true")
   parser.add_argument("--periodic", action="store_true")
@@ -74,12 +75,12 @@ def slice_ghost(arr):
 
 def run_cellulars(rule, seq_size, steps, periodic, savefig):
   RULE = rule
-  SEQ_SIZE = size
+  SEQ_SIZE = seq_size
   STEPS = steps
   PERIODIC = periodic
   SAVEFIG = savefig
   
-  if args.periodic:
+  if periodic:
       PERIODIC = True
   else:
       PERIODIC = False
@@ -132,8 +133,9 @@ def main():
     
   args = parser.parse_args()
   
+
   run_cellulars(args.rule, args.size, args.steps, args.periodic, args.savefig)
 
+  # run_cellulars(110, 1000, 1000, True, True)
+
     
-if __name__ == "__main__":
-    main()
