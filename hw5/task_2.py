@@ -112,10 +112,19 @@ def run_cellulars(rule, seq_size, steps, periodic, savefig):
           print('SAVEFIG')
           plt.figure(figsize=(10, 10))
           plt.axis('off')
-          plt.title(f"rule {str(RULE)}")
+          plt.title(f"rule {RULE}")
           plt.imshow(res, cmap=plt.cm.binary);
-          plt.savefig(f"rule_{str(RULE)}_seqsize_{str(SEQ_SIZE)}_steps_{str(STEPS)}.png")
-      print(rank, 'time elapsed:', MPI.Wtime() - start_time)
+          plt.savefig(f"rule_{RULE}_seqsize_{SEQ_SIZE}_steps_{STEPS}.png")
+      time_spent = MPI.Wtime() - start_time
+      print(rank, 'time elapsed:', time_spent)
+
+      with open(f'num_nodes_{proc_cnt}_rule_{RULE}.txt', 'w') as f:
+        s = f'rule={RULE}  '
+        s += f'seqsize={SEQ_SIZE} '
+        s += f'steps={STEPS} '
+        s += f'time_spent={time_spent}'
+        f.write(s)
+
 
   MPI.Finalize()
 
@@ -128,7 +137,6 @@ def main():
   arguments = parser.parse_args()
     
   args = parser.parse_args()
-  #print(args.rule, args.size, args.steps, args.periodic, args.savefig)
 
   run_cellulars(args.rule, args.steps, args.size, args.periodic, args.savefig)
 
